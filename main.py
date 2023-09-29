@@ -34,6 +34,16 @@ class Record:
     def remove_phone(self, phone):
         self.phones = [p for p in self.phones if p.value != phone]
 
+    def find_phone(self, phone):
+        found_phone = None
+        for p in self.phones:
+            if p.value == phone:
+                found_phone = p
+                break
+        return found_phone
+    
+
+
     def edit_phone(self, old_phone, new_phone):
         edited = False
         for phone in self.phones:
@@ -44,17 +54,10 @@ class Record:
         if not edited:
             raise ValueError("Phone number not found.")
 
-    def find_phone(self, phone):
-        found_phones = []
-        for p in self.phones:
-            if p.value == phone:
-                found_phones.append(p.value)
-        return found_phones if found_phones else None
-
     def __str__(self):
         phone_str = '; '.join(str(p) for p in self.phones)
         return f"Contact name: {self.name.value}, phones: {phone_str}"
-
+ 
 class AddressBook(UserDict):
     def add_record(self, record):
         self.data[record.name.value] = record
